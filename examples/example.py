@@ -39,15 +39,9 @@ inputvals = rng.normal(size=(100, 10, 65))  # Generate random input data with sh
 
 # Compute probabilities using the SALAMA model
 probabilities = SALAMA.evaluate(inputvals)  # Evaluate the model on the random input data
-print(probabilities.shape)  # Output shape should be (15, 15), corresponding to the map dimensions
+print(probabilities.shape)  # Output shape should be (100,), corresponding to first dimension of inputvals
 
-# Compute saliency for a specific example input
-# Generate a single random example with shape (10, 65), representing one set of meteorological variables
-x = rng.normal(size=(10, 65))
 
-# Compute the saliency map for the example input
-saliency = SALAMA.get_saliency(x)  # Obtain the saliency map, which indicates the importance of each input feature
-print(saliency.shape)  # Output shape should match the input shape (10, 65)
 
 
 
