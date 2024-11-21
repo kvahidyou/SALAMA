@@ -97,48 +97,6 @@ class Model:
         else:
             return result
 
-    def get_saliency(self, x):
-        """
-        Compute the saliency map for a given input, which highlights the importance of 
-        each input feature in the model's prediction.
-
-        Parameters:
-            x (torch.Tensor or np.ndarray): Input data of shape (10, 65).
-
-        Returns:
-            np.ndarray: Saliency map with the same shape as the input.
-        """
-        # Ensure the input is a torch tensor
-        if isinstance(x, np.ndarray):
-            x = torch.from_numpy(x)
-
-        # Ensure the input is at least 3-D
-        shape = x.size()
-        unsqueezing_needed = False
-        if len(shape) < 3:
-            unsqueezing_needed = True
-            x = x.unsqueeze(0)
-
-        # Set up the model for evaluation and require gradients for input
-        self.model.eval()
-        x = x.float()
-        x.requires_grad_()
-
-        # Perform a forward pass
-        class_score = self.model(x)
-        prob = torch.sigmoid(class_score) / (
-            torch.sigmoid(class_score) + self.nt_to_t_ratio * (1.0 - torch.sigmoid(class_score))
-        )
-
-        # Compute the gradient of the output probability with respect to the input
-        prob.backward()
-        saliency = x.grad.data.abs()  # (10, 65)
-
-        # Restore original input shape if needed
-        if unsqueezing_needed:
-            saliency = saliency.squeeze(0)
-
-        return saliency.detach().numpy()
 
 
 
