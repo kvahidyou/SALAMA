@@ -57,7 +57,7 @@ pip install torch numpy<2
    cd SALAMA
    ```
 2. **Run the example script:**
-The example script located in the examples/directory demonstrates how to use the SALAMA 1D model to compute the probability of thunderstorm occurrence and generate saliency maps.
+The example script located in the examples/directory demonstrates how to use the SALAMA 1D model to compute the probability of thunderstorm occurrence.
 ```bash
 python examples/example_script.py
 ```
