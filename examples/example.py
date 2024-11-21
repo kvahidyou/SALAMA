@@ -25,8 +25,8 @@ The dimension of size 10 stands for the following 10 fields (in this order):
 
 The dimension of size 65 stands for the 65 vertical main levels of ICON-D2(-EPS), from the top to the ground, as documented in 
 https://www.dwd.de/SharedDocs/downloads/DE/modelldokumentationen/nwv/icon/icon_dbbeschr_aktuell.html
-Vertical wind speed is actually a half-level field in ICON-D2-EPS and available on 66 levels. We discard level 1 to make the data
-compatible with the other variables.
+Vertical wind speed is actually a half-level field in ICON-D2-EPS and available on 66 levels. SALAMA 1D has been trained on data in which level 1 
+has been discarded to make the data compatible with the other variables.
 
 The dimension of size N stands for the number of examples one wishes to evaluate, e.g. 542040 for the number of forecast grid points
 """
