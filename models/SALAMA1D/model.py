@@ -6,19 +6,30 @@ import numpy as np
 
 class Model:
     """
-    This class provides methods to evaluate the probability of thunderstorm occurrence 
+    This class provides methods for evaluating the probability of thunderstorm occurrence 
     based on a set of meteorological variables. The evaluation is performed using a 
-    trained machine learning model built with PyTorch. The class also includes a method 
-    for computing saliency maps, which help understand the importance of input features 
-    in the model's predictions.
+    trained machine learning model built with PyTorch.
     """
-    def __init__(self):
+    def __init__(self, version=2022):
         """
-        Initialize the Model class by setting up the required parameters and loading the 
-        pre-trained model, mean and standard deviation for input scaling, and other necessary 
-        data. The working directory is temporarily changed to ensure that dependencies are 
-        correctly located.
+        Initialize the Model class by loading the pre-trained model, scaling parameters, and 
+        other necessary configurations for evaluating thunderstorm probability.
+    
+        Parameters:
+            version (int): The version of the SALAMA1D model to use. 
+                       - 2021: Model trained on summer 2021 data.
+                       - 2022 (default): Model trained on summers 2021 and 2022 data.
+
+        Attributes:
+            fieldnames (list[str]): Names of the meteorological fields used in the model.
+            shortNameOf (dict): Mapping of field names to their shorthand versions used on the DWD open-data server
+            model (torch.nn.Module): The PyTorch model architecture loaded with pre-trained weights.
+            scaler_mean (torch.Tensor): Tensor of mean values for input normalization.
+            scaler_std (torch.Tensor): Tensor of standard deviation values for input normalization.
+            climatology (float): Probability of thunderstorm occurrence based on climatology.
+            nt_to_t_ratio (float): Ratio used for model calibration based on climatology.
         """
+
         # Change working directory to the directory containing this script
         current_working_dir = os.path.dirname(__file__)
         old_working_dir = os.getcwd()
@@ -26,7 +37,6 @@ class Model:
 
         # Field names and their types
         self.fieldnames = ['U', 'V', 'T', 'P', 'QV', 'QC', 'QI', 'QG', 'CLC', 'W']
-        self.fieldtypes = ['MAIN_LEVEL_FIELDS', 'HALF_LEVEL_FIELDS']
         self.shortNameOf = {
             'U': 'u', 'V': 'v', 'T': 't', 'P': 'pres', 'QV': 'q', 'QC': 'clwmr', 
             'QI': 'QI', 'QG': 'grle', 'CLC': 'ccl', 'W': 'wz', 'CAPE_ML': 'CAPE_ML', 
@@ -40,14 +50,14 @@ class Model:
 
         # Load the pre-trained model
         self.model = Architecture(10, 65, 8, 3, 5)
-        self.model.load_state_dict(torch.load("state_dict.pth"))
+        self.model.load_state_dict(torch.load(f"state_dict_{version}.pth"))
         
-        # Load mean and standard deviation for input rescaling
-        self.scaler_mean = torch.load("scaling_mean.pt").unsqueeze(0).unsqueeze(2)
-        self.scaler_std = torch.load("scaling_std.pt").unsqueeze(0).unsqueeze(2)
+        # Load mean and standard deviation for input rescaling (data has been rescaled accordingly during training for normalization)
+        self.scaler_mean = torch.load(f"scaling_mean_{version}.pt").unsqueeze(0).unsqueeze(2)
+        self.scaler_std = torch.load(f"scaling_std_{version}.pt").unsqueeze(0).unsqueeze(2)
 
         # Climatology data (probability of thunderstorm occurrence without prior input knowledge)
-        self.climatology = 0.0199884572519361
+        self.climatology = 0.0193
         self.nt_to_t_ratio = (1.0 - self.climatology) / self.climatology
 
         # Revert to the old working directory
@@ -85,7 +95,7 @@ class Model:
         x = x.float()
         output = torch.sigmoid(self.model(x))
 
-        # Apply model calibration based on Yousefnia et al. (2024)
+        # Apply model calibration based on Vahid Yousefnia et al. (2024)
         result = output / (output + self.nt_to_t_ratio * (1.0 - output))
         result = result.squeeze(-1)
 
