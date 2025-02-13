@@ -41,7 +41,7 @@ The dimension of size N stands for the number of examples one wishes to evaluate
 # Generate a random array of meteorological variables for testing
 # In practice, you would replace this with actual simulation data, e.g., from the DWD (German Meteorological Service)
 rng = np.random.default_rng()  # Create a random number generator instance
-inputvals = rng.normal(size=(100, 21))  # Generate random input data with shape (100, 10, 65)
+inputvals = rng.normal(size=(100, 21))  # Generate random input data with shape (100, 21)
 
 
 # Compute probabilities using the SALAMA model
