@@ -6,7 +6,7 @@
 - lightning observations of the LINET lightning detection network, provided by [nowcast GmbH](https://www.nowcast.de/)
 
 The scientific background is detailed in the following paper:
-K. Vahid Yousefnia et al.: _Inferring Thunderstorm Occurrence from Vertical Profiles of Convection-Permitting Simulations: Physical Insights from a Physical Deep Learning Model_, 2024. (Submitted to _Artificial Intelligence for the Earth Systems_, preprint available at: http://arxiv.org/abs/2409.20087)
+K. Vahid Yousefnia et al. (2025): Inferring Thunderstorm Occurrence from Vertical Profiles of Convection-Permitting Simulations: Physical Insights from a Physical Deep Learning Model. _Artif. Intell. Earth Syst._, 4, 240096, [doi: 10.1175/AIES-D-24-0096.1](https://doi.org/10.1175/AIES-D-24-0096.1)
 
 The datasets used for training, validation, and testing are available from [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.13981208.svg)](https://doi.org/10.5281/zenodo.13981208).
 
