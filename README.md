@@ -25,7 +25,7 @@ SALAMA1D/
 ├── examples/                # Example scripts and usage demonstrations
 ├── models/                  # Directory containing model architectures and trained models
 │   ├── SALAMA1D/            # Directory containing the SALAMA 1D model and architecture
-│   └── SALAMA0D/            # Directory containing the SALAMA 1D model and architecture
+│   └── SALAMA0D/            # Directory containing the SALAMA 0D model and architecture
 └── LICENSE                  # Open-source License File
 └── CHANGELOG                # changelog of software updates
 ```
