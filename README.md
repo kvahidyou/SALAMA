@@ -66,4 +66,4 @@ Please see the file LICENSE.md for further information about how the content is 
 ## Citation
 If you use SALAMA 1D in your research, please refer to the specific version on Zenodo [![DOI](https://zenodo.org/badge/891436828.svg)](https://doi.org/10.5281/zenodo.14212888), and cite the following paper:
 
-K. Vahid Yousefnia et al.: _Inferring Thunderstorm Occurrence from Vertical Profiles of Convection-Permitting Simulations: Physical Insights from a Physical Deep Learning Model_, 2024. (Submitted to _Artificial Intelligence for the Earth Systems_, preprint available at: http://arxiv.org/abs/2409.20087)
+K. Vahid Yousefnia et al. (2025): Inferring Thunderstorm Occurrence from Vertical Profiles of Convection-Permitting Simulations: Physical Insights from a Physical Deep Learning Model. _Artif. Intell. Earth Syst._, 4, 240096, doi: [10.1175/AIES-D-24-0096.1](https://doi.org/10.1175/AIES-D-24-0096.1)
